@@ -2,7 +2,10 @@ module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
 
-    concat: {}
+    concat: 
+      dist:
+        src: ['public/client/**/*.js', 'public/lib/**/*.js']
+        dest: 'public/dist/production.js'
 
     mochaTest:
       test:
@@ -14,7 +17,10 @@ module.exports = (grunt) ->
       dev:
         script: 'server.js'
 
-    uglify: {}
+    uglify:
+      build:
+        src: 'public/dist/production.js'
+        dest: 'public/dist/production.min.js'
 
     jshint:
       files: []
@@ -31,14 +37,8 @@ module.exports = (grunt) ->
 
     watch:
       scripts:
-        files: [
-          'public/client/**/*.js'
-          'public/lib/**/*.js'
-        ]
-        tasks: [
-          'concat'
-          'uglify'
-        ]
+        files: ['public/client/**/*.js', 'public/lib/**/*.js']
+        tasks: ['concat', 'uglify']
       css:
         files: 'public/*.css'
         tasks: ['cssmin']
@@ -66,9 +66,9 @@ module.exports = (grunt) ->
     nodemon.stderr.pipe process.stderr
     grunt.task.run ['watch']
 
-#//////////////////////////////////////////////////
-# Main grunt tasks
-#//////////////////////////////////////////////////
+# //////////////////////////////////////////////////
+#  Main grunt tasks
+# //////////////////////////////////////////////////
 
   grunt.registerTask 'test', [
     'mochaTest'
@@ -83,5 +83,6 @@ module.exports = (grunt) ->
       grunt.task.run ['server-dev']
    
   grunt.registerTask 'deploy', [
-    # add your deploy tasks here
+    'concat'
+    'uglify'
   ]
