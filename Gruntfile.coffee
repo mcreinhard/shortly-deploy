@@ -3,9 +3,19 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON('package.json')
 
     concat: 
-      dist:
-        src: ['public/client/**/*.js', 'public/lib/**/*.js']
-        dest: 'public/dist/production.js'
+      client:
+        src: [
+          'public/client/**/*.js'
+        ]
+        dest: 'public/dist/client.js'
+      lib:
+        src: [
+          'public/lib/underscore.js'
+          'public/lib/jquery.js'
+          'public/lib/backbone.js'
+          'public/lib/handlebars.js'
+        ]
+        dest: 'public/dist/lib.js'
 
     mochaTest:
       test:
