@@ -23,8 +23,12 @@ module.exports = (grunt) ->
         dest: 'public/dist/production.min.js'
 
     jshint:
-      files: []
-      # Add filespec list here
+      files: [
+        'app/**/*.js'
+        'lib/**/*.js'
+        'test/**/*.js'
+        'public/**/*.js'
+      ]
       options:
         force: 'true'
         jshintrc: '.jshintrc'
@@ -85,4 +89,6 @@ module.exports = (grunt) ->
   grunt.registerTask 'deploy', [
     'concat'
     'uglify'
+    'jshint'
+    'mochaTest'
   ]
