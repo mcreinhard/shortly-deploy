@@ -34,7 +34,6 @@ module.exports = (grunt) ->
 
     jshint:
       files: [
-        'app/**/*.js'
         'lib/**/*.js'
         'test/**/*.js'
         'public/**/*.js'
